@@ -1,0 +1,11 @@
+{
+  "name": "glp",
+  "version": "0.0.0",
+  "description": "Abstract various configuration formats through gulp.",
+  "main": "lib/glp",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Brandon R. Stoner <monokrome@limpidtech.com> (http://monokro.me)",
+  "license": "MIT"
+}
