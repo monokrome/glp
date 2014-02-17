@@ -7,5 +7,9 @@
     "test": "mocha"
   },
   "author": "Brandon R. Stoner <monokrome@limpidtech.com> (http://monokro.me)",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "gulp-util": "~2.2.14",
+    "gulp": "~3.5.2"
+  }
 }
