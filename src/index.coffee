@@ -5,8 +5,8 @@ connect_livereload = require 'connect-livereload'
 prefer = require 'prefer'
 http = require 'http'
 path = require 'path'
-
 _ = require 'lodash'
+
 
 concat = require 'gulp-concat'
 filter = require 'gulp-filter'
@@ -23,17 +23,25 @@ execute = (config) ->
   config.files ?= {}
   config.plugins ?= {}
 
-  config.filters ?=
-    coffee: {}
-    jade: {}
-    sass: {}
-    less: {}
-    stylus: {}
-
 
   config.static ?=
     path: './lib'
     port: 3333
+
+
+  config.scriptedTemplateTypes = ['scripts']
+
+
+  config.filters ?=
+    coffee: {}
+    sass: {}
+    less: {}
+    stylus: {}
+    jade:
+      wrapper: (options, type) ->
+        hints:
+          client: type in config.scriptedTemplateTypes
+
 
   config.liveReload ?=
     port: 35729
@@ -84,16 +92,17 @@ execute = (config) ->
     return config.watch and liveReloadIndex > -1
 
 
-  getTransform = (transform) ->
-    if _.isString transform
-      options = config.plugins[transform] or {}
-      transform = require 'gulp-' + transform
-      transform = transform options
+  getTransform = (hints) ->
+    return (transform) ->
+      if _.isString transform
+        options = config.plugins[transform] or {}
+        transform = require 'gulp-' + transform
+        transform = transform _.merge options, hints
 
-    return transform
+      return transform
 
 
-  getFilterSteps = ->
+  getFilterSteps = (type, output) ->
     steps = []
 
     if _.isArray config.filters
@@ -102,14 +111,22 @@ execute = (config) ->
       config.filters = newFilters
 
     for name, options of config.filters
+      options = options.wrapper options, type, output if options.wrapper?
+
       options.transform = name unless options.transform?
       options.transform = [options.transform] if _.isString options.transform
+      options.transform = [options.transform] unless _.isArray options.transform
 
       options.matches ?= '**/*.' + name
-      nextFilter = filter options.matches
+      options.hints ?= {}
+      console.log type, output, options.hints
 
+      nextFilter = filter options.matches
       steps.push nextFilter
-      steps = steps.concat _.map options.transform, getTransform
+
+      transforms = _.map options.transform, getTransform options.hints
+
+      steps = steps.concat transforms
       steps.push nextFilter.restore()
 
     return steps
@@ -136,7 +153,7 @@ execute = (config) ->
     steps = []
     steps.push plumber() if config.watch
 
-    steps = steps.concat getFilterSteps()
+    steps = steps.concat getFilterSteps type, output
     steps.push concat path.basename finalFileName unless ignoreConcat
     steps.push getTransform minifier if config.minify and minifier?
     steps.push gulp.dest destination
