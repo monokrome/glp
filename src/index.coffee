@@ -53,7 +53,10 @@ execute = (config) ->
     js: 'uglify'
     css: 'minify-css'
 
+
   config.environment ?= 'development'
+
+
   config.environments ?=
     development:
       minify: no
