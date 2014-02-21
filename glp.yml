@@ -1,0 +1,3 @@
+files:
+  scripts:
+    lib/glp: "src/index.coffee"

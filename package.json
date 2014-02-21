@@ -30,6 +30,7 @@
     "lodash": "~2.4.1",
     "prefer": "~0.4.0",
     "gulp-uglify": "~0.2.1",
-    "gulp-minify-css": "~0.3.0"
+    "gulp-minify-css": "~0.3.0",
+    "coffee-script": "~1.7.1"
   }
 }
