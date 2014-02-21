@@ -36,7 +36,13 @@ execute = (config) ->
     coffee: {}
     sass: {}
     less: {}
-    stylus: {}
+    stylus:
+      matches: [
+        '**/*.styl'
+        '**/*.stylus'
+      ]
+      transform: 'stylus'
+
     jade:
       wrapper: (options, type) ->
         hints:
@@ -157,9 +163,15 @@ execute = (config) ->
 
     steps = steps.concat getFilterSteps type, output
     steps.push concat path.basename finalFileName unless ignoreConcat
-    steps.push getTransform minifier if config.minify and minifier?
+
+    if config.minify and minifier?
+      minifierTransform = getTransform  {}
+      steps.push minifierTransform minifier
+
     steps.push gulp.dest destination
-    steps.push livereload lr_service if isLiveReloadEnabled type
+
+    if config.service? and isLiveReloadEnabled type
+      steps.push livereload lr_service
 
     input = input.pipe step for step in steps
 
@@ -184,6 +196,18 @@ execute = (config) ->
     config = _.merge environment, config if environment?
 
     unless type?
+      if config.service?
+        config.service.use express.static config.static.path
+        config.service.use express.directory config.static.path
+        config.service.listen config.static.port
+
+        colorizedPort = gutil.colors.magenta config.static.port
+        gutil.log 'Serving static files at http://localhost:' + colorizedPort
+
+        if isLiveReloadEnabled()
+          config.service.use connect_livereload
+            port: config.liveReload.port
+
       types = _.keys config.files
       return _.map types, tasks
 
@@ -233,17 +257,7 @@ module.exports = (gulp, configFileName) ->
 
   gulp.task 'serve', ->
     service = express()
-      watch: yes
-
-    if isLiveReloadEnabled()
-      service.use connect_livereload
-        port: config.liveReload.port
-
-    service.use express.static config.static.path
-    service.use express.directory config.static.path
-    service.listen config.static.port
-
-    colorizedPort = gutil.colors.magenta config.static.port
-    gutil.log 'Serving static files at http://localhost:' + colorizedPort
 
     run_tasks configFileName,
+      watch: yes
+      service: service
