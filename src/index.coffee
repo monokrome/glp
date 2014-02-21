@@ -29,6 +29,10 @@ execute = (config) ->
     port: 3333
 
 
+  if config.static.path[0..1] == './' and config.static.path.length > 2
+    config.static.path = config.static.path[2..]
+
+
   config.scriptedTemplateTypes = ['scripts']
 
 
@@ -52,7 +56,8 @@ execute = (config) ->
   config.liveReload ?=
     port: 35729
     enabled: yes
-    types: ['styles']
+    inject: yes
+    types: ['stylesheets', 'scripts']
 
 
   config.minifiers ?=
@@ -88,9 +93,6 @@ execute = (config) ->
 
     styles: 'css'
     stylesheets: 'css'
-
-
-  lr_service = lr config.liveReload.port
 
 
   isLiveReloadEnabled = (type) ->
@@ -140,6 +142,23 @@ execute = (config) ->
     return steps
 
 
+  triggerLiveReload = (output, type) -> (filename) ->
+    if config.static?.path?
+      index = output.indexOf config.static.path
+      output = output[config.static.path.length..] if index is 0
+    
+    if config.extensions[type]?
+      index = output.indexOf config.extensions[type]
+      output += '.' + config.extensions[type] if index is -1
+
+    config.liveReload.service?.changed
+      body:
+        files: [
+          output
+          filename
+        ]
+
+
   compilerFactory = (type, output) -> (input) ->
     # Referece output separately so that it doesn't get modified directly
     finalFileName = output
@@ -171,7 +190,7 @@ execute = (config) ->
     steps.push gulp.dest destination
 
     if config.service? and isLiveReloadEnabled type
-      steps.push livereload lr_service
+      steps.push livereload config.liveReload.service
 
     input = input.pipe step for step in steps
 
@@ -186,7 +205,11 @@ execute = (config) ->
           glob: input
           name: type
 
-        watch options, compiler
+        watcher = watch options, compiler
+        watcher.gaze.on 'changed', (filename) ->
+          if isLiveReloadEnabled type
+            reloadMethod = triggerLiveReload output, type
+            reloadMethod filename
 
       else
         compiler gulp.src input
@@ -197,16 +220,25 @@ execute = (config) ->
 
     unless type?
       if config.service?
+        if isLiveReloadEnabled()
+          config.liveReload.service = lr()
+          config.liveReload.service.listen config.liveReload.port
+
+          colorizedPort = gutil.colors.magenta config.liveReload.port
+          gutil.log 'LiveReload enabled at http://localhost:' + colorizedPort
+
+          if config.liveReload.inject
+            config.service.use connect_livereload
+              port: config.liveReload.port
+
         config.service.use express.static config.static.path
         config.service.use express.directory config.static.path
+
         config.service.listen config.static.port
 
         colorizedPort = gutil.colors.magenta config.static.port
         gutil.log 'Serving static files at http://localhost:' + colorizedPort
 
-        if isLiveReloadEnabled()
-          config.service.use connect_livereload
-            port: config.liveReload.port
 
       types = _.keys config.files
       return _.map types, tasks

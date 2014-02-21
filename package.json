@@ -1,6 +1,6 @@
 {
   "name": "glp",
-  "version": "0.0.2-hotfix3",
+  "version": "0.0.3",
   "description": "Abstract various configuration formats through gulp.",
   "main": "lib/glp",
   "scripts": {
