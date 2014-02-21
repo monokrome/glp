@@ -1,6 +1,6 @@
 {
   "name": "glp",
-  "version": "0.0.2-hotfix",
+  "version": "0.0.2-hotfix2",
   "description": "Abstract various configuration formats through gulp.",
   "main": "lib/glp",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "author": "Brandon R. Stoner <monokrome@limpidtech.com> (http://monokro.me)",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "gulp-util": "~2.2.14",
     "gulp": "~3.5.2",
     "coffee-coverage": "~0.4.2",
