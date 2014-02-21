@@ -119,7 +119,6 @@ execute = (config) ->
 
       options.matches ?= '**/*.' + name
       options.hints ?= {}
-      console.log type, output, options.hints
 
       nextFilter = filter options.matches
       steps.push nextFilter
