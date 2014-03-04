@@ -5,7 +5,7 @@ connect_livereload = require 'connect-livereload'
 prefer = require 'prefer'
 http = require 'http'
 path = require 'path'
-_ = require 'lodash'
+lodash = require 'lodash'
 
 
 concat = require 'gulp-concat'
@@ -16,83 +16,15 @@ livereload = require 'gulp-livereload'
 plumber = require 'gulp-plumber'
 watch = require 'gulp-watch'
 
+defaults = require './defaults'
+
 
 execute = (config) ->
-  config.watch ?= no
-  config.production ?= no
-  config.files ?= {}
-  config.plugins ?= {}
+  config = lodash.merge {}, defaults, config
 
 
-  config.static ?=
-    path: './lib'
-    port: 3333
-
-
-  if config.static.path[0..1] == './' and config.static.path.length > 2
+  if config.static.path[0..1] = './' and config.static.path.length > 2
     config.static.path = config.static.path[2..]
-
-
-  config.scriptedTemplateTypes = ['scripts']
-
-
-  config.filters ?=
-    coffee: {}
-    sass: {}
-    less: {}
-    stylus:
-      matches: [
-        '**/*.styl'
-        '**/*.stylus'
-      ]
-      transform: 'stylus'
-
-    jade:
-      wrapper: (options, type) ->
-        hints:
-          client: type in config.scriptedTemplateTypes
-
-
-  config.liveReload ?=
-    port: 35729
-    enabled: yes
-    inject: yes
-    types: ['stylesheets', 'scripts']
-
-
-  config.minifiers ?=
-    js: 'uglify'
-    css: 'minify-css'
-
-
-  config.environment ?= 'development'
-
-
-  config.environments ?=
-    development:
-      minify: no
-      plugins:
-        uglify:
-          outSourceMap: yes
-        jade:
-          pretty: yes
-
-    production:
-      minify: yes
-      plugins:
-        uglify:
-          outSourceMap: no
-        jade:
-          pretty: false
-
-
-  config.extensions ?= {}
-  _.merge config.extensions,
-    scripts: 'js'
-    javascripts: 'js'
-
-    styles: 'css'
-    stylesheets: 'css'
 
 
   isLiveReloadEnabled = (type) ->
@@ -105,10 +37,10 @@ execute = (config) ->
 
   getTransform = (hints) ->
     return (transform) ->
-      if _.isString transform
+      if lodash.isString transform
         options = config.plugins[transform] or {}
         transform = require 'gulp-' + transform
-        transform = transform _.merge options, hints
+        transform = transform lodash.merge options, hints
 
       return transform
 
@@ -116,17 +48,17 @@ execute = (config) ->
   getFilterSteps = (type, output) ->
     steps = []
 
-    if _.isArray config.filters
+    if lodash.isArray config.filters
       newFilters = {}
       newFilters[name] = {} for name in config.filters
       config.filters = newFilters
 
     for name, options of config.filters
-      options = options.wrapper options, type, output if options.wrapper?
+      options = options.wrapper options, type, config, output if options.wrapper?
 
       options.transform = name unless options.transform?
-      options.transform = [options.transform] if _.isString options.transform
-      options.transform = [options.transform] unless _.isArray options.transform
+      options.transform = [options.transform] if lodash.isString options.transform
+      options.transform = [options.transform] unless lodash.isArray options.transform
 
       options.matches ?= '**/*.' + name
       options.hints ?= {}
@@ -134,7 +66,7 @@ execute = (config) ->
       nextFilter = filter options.matches
       steps.push nextFilter
 
-      transforms = _.map options.transform, getTransform options.hints
+      transforms = lodash.map options.transform, getTransform options.hints
 
       steps = steps.concat transforms
       steps.push nextFilter.restore()
@@ -146,7 +78,7 @@ execute = (config) ->
     if config.static?.path?
       index = output.indexOf config.static.path
       output = output[config.static.path.length..] if index is 0
-    
+
     if config.extensions[type]?
       index = output.indexOf config.extensions[type]
       output += '.' + config.extensions[type] if index is -1
@@ -216,7 +148,7 @@ execute = (config) ->
 
   tasks = (type) ->
     environment = config.environments[config.environment]
-    config = _.merge environment, config if environment?
+    config = lodash.merge environment, config if environment?
 
     unless type?
       if config.service?
@@ -240,14 +172,14 @@ execute = (config) ->
         gutil.log 'Serving static files at http://localhost:' + colorizedPort
 
 
-      types = _.keys config.files
-      return _.map types, tasks
+      types = lodash.keys config.files
+      return lodash.map types, tasks
 
     inputs = config.files[type]
     throw new Error 'No inputs defined for ' + type unless inputs?
 
-    outputs = _.keys inputs
-    _.map outputs, compile type
+    outputs = lodash.keys inputs
+    lodash.map outputs, compile type
 
   tasks()
 
@@ -264,7 +196,7 @@ run_tasks = (configFileName, updates) ->
 
       # Provides support for the silly brunch-style configurations.
       config = config.config if config.config?
-      config = _.merge updates, config
+      config = lodash.merge updates, config
 
       execute config
 
