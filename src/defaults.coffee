@@ -18,27 +18,28 @@ module.exports =
 
   minify: no
 
-  scriptTypes: ['scripts']
-
   filters:
-    coffee: {}
-    sass: {}
-    less: {}
+    scripts:
+      coffee: {}
+      jade:
+        options:
+          client: true
 
-    stylus:
-      transform: 'stylus'
-      matches: [
-        '**/*.styl'
-        '**/*.stylus'
-      ]
+    stylesheets:
+      sass: {}
+      less: {}
 
-    jade:
-      wrapper: (options, type, config) ->
-        client = type in config.scriptTypes
+      stylus:
+        transforms: 'stylus'
+        matches: [
+          '**/*.styl'
+          '**/*.stylus'
+        ]
 
-        return lodash.merge {}, options,
-          hints:
-            client: client
+    templates:
+      jade:
+        options:
+          client: false
 
   minifiers:
     js: 'uglify'

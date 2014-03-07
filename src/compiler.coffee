@@ -12,6 +12,12 @@ filters =
   plumber: require 'gulp-plumber'
 
 
+ensureArray = (value) ->
+  value = [value] if lodash.isString value
+  value = [value] unless lodash.isArray value
+  return value
+
+
 class Compiler
   constructor: (@glp) ->
     @configuration = lodash.extend {}, @glp.configuration
@@ -28,40 +34,37 @@ class Compiler
       transform = require 'gulp-' + transform
 
     if lodash.isFunction transform
-      transform = transform lodash.merge options, hints
+      transform = transform lodash.merge options, options.hints
 
     return transform
 
   filteredPipeline: (type, output) ->
     steps = []
 
-    for name, options of @configuration.filters
+    typeFilters = @configuration.filters[type]
+    return unless typeFilters?
+
+    for name, options of typeFilters
       winston.debug 'Applying ' + name + ' filter for ' + type
 
-      if options.wrapper?
-        options = options.wrapper options, type, @configuration, output
+      # Allow singular or plural name for options
+      options.hints ?= options.hint or {}
+      options.hint = undefined
 
-      # Initialize transform option and guarantee that it's an array.
-      options.transform = name unless options.transform?
+      options.matches ?= options.match or ['**/*.' + name]
+      options.match = undefined
 
-      if lodash.isString options.transform
-        options.transform = [options.transform]
+      options.transforms ?= options.transform or name
+      options.transform = undefined
 
-      unless lodash.isArray options.transform
-        options.transform = [options.transform]
-
-      # Initialize matches by using name as default extension
-      options.matches ?= ['**/*.' + name]
-      options.hints ?= {}
+      unless lodash.isFunction options.transforms
+        options.transforms = ensureArray options.transforms
 
       # Filter for only streams matching the requested filter
       nextFilter = filters.filter options.matches
+      transforms = lodash.map options.transforms, @transform options.hints
+
       steps.push nextFilter
-
-      # Apply any filters for this specific transform
-      transforms = lodash.map options.transform, @transform options.hints
-
-      # Restore filter fater applying filter-specific transformations
       steps = steps.concat transforms
       steps.push nextFilter.restore()
 
