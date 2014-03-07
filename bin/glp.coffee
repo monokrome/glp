@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+#
 {GLP} = require '../src/glp'
 {argv} = require 'yargs'
 
