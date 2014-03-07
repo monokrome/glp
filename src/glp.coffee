@@ -25,13 +25,18 @@ class GLP
           configuration = subset if subset?
 
         # Inherit default options
-        configuration = lodash.merge {}, defaults, configuration
+        nextConfiguration = lodash.merge {}, defaults
+        configuration = lodash.merge nextConfiguration, configuration
 
         # Wrap into orchestrator
         for name, _ of configuration.tasks
           gulp.task name, =>
             winston.info 'Running task: ' + chalk.white @task
-            @initialize lodash.merge {}, configuration, configuration.tasks[@task]
+
+            taskConfiguration = lodash.merge {}, configuration
+            lodash.merge taskConfiguration, configuration.tasks[@task]
+
+            @initialize taskConfiguration
 
         gulp.start @task
 
