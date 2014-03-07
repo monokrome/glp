@@ -22,11 +22,11 @@ class Compiler
   constructor: (@glp) ->
     @configuration = lodash.extend {}, @glp.configuration
 
-    if lodash.isArray @configuration.filters
-      newFilters = {}
-      newFilters[name] = {} for name in @configuration.filters
-
-      @configuration.filters = newFilters
+    for type, filter of @configuration.filters
+      if lodash.isArray filter
+        newFilter = {}
+        newFilter[name] = {} for name in filter
+        @configuration.filters[type] = newFilter
 
   transform: (hints) -> (transform) =>
     if lodash.isString transform
@@ -49,16 +49,18 @@ class Compiler
 
       # Allow singular or plural name for options
       options.hints ?= options.hint or {}
-      options.hint = undefined
+      options.hint = undefined if options.hint?
 
       options.matches ?= options.match or ['**/*.' + name]
-      options.match = undefined
+      options.match = undefined if options.match?
 
       options.transforms ?= options.transform or name
-      options.transform = undefined
+      options.transform = undefined if options.transform?
 
-      unless lodash.isFunction options.transforms
-        options.transforms = ensureArray options.transforms
+      unless lodash.isFunction options.matches
+        options.matches = ensureArray options.matches
+
+      options.transforms = ensureArray options.transforms
 
       # Filter for only streams matching the requested filter
       nextFilter = filters.filter options.matches
@@ -114,7 +116,7 @@ class Compiler
         steps.push filters.livereload @glp.liveReload
 
       steps.push gulp.dest destination
-      stream.pipe step for step in steps
+      stream = stream.pipe step for step in steps
 
     watchText = 'watch mode is '
 
