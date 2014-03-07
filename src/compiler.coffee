@@ -112,10 +112,10 @@ class Compiler
 
       unless shouldConcat
         cachedOptions = @configuration.plugins.cached or {}
-        steps.push filters.cached type, cachedOptions
-
         changedOptions = @configuration.plugins.changed or {}
-        steps.push filters.changed destination
+
+        steps.push filters.cached type, cachedOptions
+        steps.push filters.changed destination, changedOptions
 
       if @configuration.watch
         steps.push filters.plumber()
@@ -137,12 +137,13 @@ class Compiler
 
       return stream
   
-    build gulp.src inputs,
-      read: false
+    stream = gulp.src inputs,
       options:
         root: process.cwd()
         nosort: true
         nocase: true
+
+    build stream.pipe filters.clean()
 
     return relatedUrl
 
