@@ -6,6 +6,8 @@ winston = require 'winston'
 
 
 filters =
+  changed: require 'gulp-changed'
+  cached: require 'gulp-cached'
   concat: require 'gulp-concat'
   filter: require 'gulp-filter'
   livereload: require 'gulp-livereload'
@@ -106,6 +108,9 @@ class Compiler
         destination = output
 
       steps = []
+
+      steps.push filters.cached type
+      steps.push filters.changed destination
 
       steps.push filters.plumber() if @configuration.watch
       steps = steps.concat @filteredPipeline type, output
