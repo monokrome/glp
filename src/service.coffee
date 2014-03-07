@@ -6,6 +6,9 @@ winston = require 'winston'
 
 
 enableLiveReload = (glp) ->
+  # TODO: Recreate service in order to reflect configuration changes.
+  return if glp.liveReload?
+
   {configuration} = glp
 
   glp.liveReload = lr()
@@ -26,6 +29,9 @@ enableLiveReload = (glp) ->
 
 
 serve = (glp) ->
+  # TODO: Recreate service in order to reflect configuration changes.
+  return if glp.service?
+
   {configuration} = glp
 
   glp.service = express()

@@ -1,5 +1,7 @@
 async = require 'async'
+chalk = require 'chalk'
 defaults = require './defaults'
+gulp = require 'gulp'
 lodash = require 'lodash'
 winston = require 'winston'
 
@@ -8,9 +10,10 @@ winston = require 'winston'
 
 
 class GLP
-  constructor: (@configurator) -> @configure()
+  constructor: (task, @configurator) ->
+    @configure task
 
-  configure: ->
+  configure: (@task) ->
     @configurator.get (err, configuration) =>
       if err
         winston.err 'Configuration error: ' + err.toString()
@@ -21,12 +24,30 @@ class GLP
           subset = configuration[partition]
           configuration = subset if subset?
 
-        @initialize lodash.merge {}, defaults, configuration
+        # Inherit default options
+        configuration = lodash.merge {}, defaults, configuration
+
+        # Wrap into orchestrator
+        for name, _ of configuration.tasks
+          gulp.task name, =>
+            # Apply the current task settings into the configuration
+            lodash.merge configuration, configuration.tasks[@task]
+
+            winston.info 'Running task: ' + chalk.white @task
+            @initialize configuration
+
+        gulp.start @task
 
   initialize: (@configuration) ->
+    watchStatus = chalk.white 'enabled' if @configuration.watch
+    watchStatus ?= chalk.white 'disabled'
+    winston.debug 'watch mode is ' + watchStatus
+
     serve.call @, @ if @configuration.static.enabled
 
     @run()
+
+    gulp.watch '**/*.coffee', [@task] if @configuration.watch
 
   run: ->
     types = lodash.keys @configuration.files

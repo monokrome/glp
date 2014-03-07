@@ -20,4 +20,6 @@ prefer.load configFileName, (err, configurator) ->
   throw err if err
 
   winston.debug 'Using configuration: ' + chalk.white configFileName
-  return new GLP configurator
+  argv._ = ['default'] if argv._.length is 0
+
+  return new GLP argv._[0], configurator

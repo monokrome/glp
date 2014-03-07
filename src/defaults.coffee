@@ -53,23 +53,28 @@ module.exports =
     stylesheets: 'css'
 
   liveReload:
+    enabled: no
     port: 35729
-    enabled: yes
     inject: yes
     types: ['stylesheets', 'scripts']
 
   static:
-    enabled: yes
+    enabled: no
     port: 3333
 
-  environments:
+  tasks:
+    default: {}
+
     watch:
       watch: yes
 
     server:
-      server: yes
+      watch: yes
 
       static:
+        enabled: yes
+
+      liveReload:
         enabled: yes
 
     release:
@@ -80,4 +85,4 @@ module.exports =
           outSourceMap: no
 
         jade:
-          pretty: false
+          pretty: no

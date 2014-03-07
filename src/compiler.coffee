@@ -118,20 +118,7 @@ class Compiler
       steps.push gulp.dest destination
       stream = stream.pipe step for step in steps
 
-    watchText = 'watch mode is '
-
-    if @configuration.watch
-      watchText += 'enabled'
-      stream = gulp.watch inputs
-
-    else
-      watchText += 'disabled'
-      stream = gulp.src inputs
-
-    stream.setMaxListeners 99
-
-    build stream
-    winston.debug watchText
+    build gulp.src inputs
 
 
 module.exports = {Compiler}
