@@ -7,6 +7,9 @@
     "prepublish": "gulp",
     "test": "mocha"
   },
+  "bin": {
+    "glp": "./bin/glp.coffee"
+  },
   "author": "Brandon R. Stoner <monokrome@limpidtech.com> (http://monokro.me)",
   "license": "MIT",
   "dependencies": {
@@ -33,6 +36,10 @@
     "gulp-uglify": "~0.2.1",
     "gulp-minify-css": "~0.3.0",
     "coffee-script": "~1.7.1",
-    "express": "^3.4.8"
+    "express": "^3.4.8",
+    "winston": "^0.7.2",
+    "yargs": "^1.2.1",
+    "chalk": "^0.4.0",
+    "async": "^0.2.10"
   }
 }

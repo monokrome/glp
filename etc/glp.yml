@@ -1,3 +1,5 @@
+root: 'lib'
+
 files:
   scripts:
-    lib/glp: "src/index.coffee"
+    glp/: 'src/**/*.coffee'

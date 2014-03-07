@@ -2,21 +2,29 @@ lodash = require 'lodash'
 
 
 module.exports =
-  watch:  no
+  root: 'public'
+
+  watch: no
   production:  no
+
   files:  {}
-  plugins:  {}
 
-  static:
-    path: './lib'
-    port: 3333
+  plugins:
+    uglify:
+      outSourceMap: yes
 
-  scriptedTemplateTypes: ['scripts']
+    jade:
+      pretty: yes
+
+  minify: no
+
+  scriptTypes: ['scripts']
 
   filters:
     coffee: {}
     sass: {}
     less: {}
+
     stylus:
       transform: 'stylus'
       matches: [
@@ -25,38 +33,16 @@ module.exports =
       ]
 
     jade:
-      wrapper: (options, type, config) -> lodash.merge {}, options,
-        hints:
-          client: type in config.scriptedTemplateTypes
+      wrapper: (options, type, config) ->
+        client = type in config.scriptTypes
 
-  liveReload:
-    port: 35729
-    enabled: yes
-    inject: yes
-    types: ['stylesheets', 'scripts']
+        return lodash.merge {}, options,
+          hints:
+            client: client
 
   minifiers:
     js: 'uglify'
     css: 'minify-css'
-
-  environment:  'development'
-
-  environments:
-    development:
-      minify: no
-      plugins:
-        uglify:
-          outSourceMap: yes
-        jade:
-          pretty: yes
-
-    production:
-      minify: yes
-      plugins:
-        uglify:
-          outSourceMap: no
-        jade:
-          pretty: false
 
   extensions:
     scripts: 'js'
@@ -64,3 +50,33 @@ module.exports =
 
     styles: 'css'
     stylesheets: 'css'
+
+  liveReload:
+    port: 35729
+    enabled: yes
+    inject: yes
+    types: ['stylesheets', 'scripts']
+
+  static:
+    enabled: yes
+    port: 3333
+
+  environments:
+    watch:
+      watch: yes
+
+    server:
+      server: yes
+
+      static:
+        enabled: yes
+
+    release:
+      minify: yes
+
+      plugins:
+        uglify:
+          outSourceMap: no
+
+        jade:
+          pretty: false
