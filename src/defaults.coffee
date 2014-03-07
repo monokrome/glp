@@ -5,7 +5,6 @@ defaults =
   root: 'public'
 
   watch: no
-  production:  no
 
   files:  {}
 
@@ -61,16 +60,13 @@ defaults =
 
   extensions:
     scripts: 'js'
-    javascripts: 'js'
-
-    styles: 'css'
     stylesheets: 'css'
+    templates: 'html'
 
   liveReload:
     enabled: no
     port: 35729
     inject: yes
-    types: ['stylesheets', 'scripts']
 
   static:
     enabled: no
@@ -105,6 +101,12 @@ defaults =
 # Alias some things for use preference reasons.
 defaults.filters.styles = defaults.filters.stylesheets
 defaults.filters.javascripts = defaults.filters.scripts
+
+defaults.extensions.styles = defaults.extensions.stylesheets
+defaults.extensions.javascripts = defaults.extensions.scripts
+
+defaults.tasks.serve = defaults.tasks.server
+defaults.tasks.production = defaults.tasks.release
 
 
 module.exports = defaults

@@ -3,4 +3,4 @@ root: ''
 files:
   scripts:
     lib/glp/: 'src/**/*.coffee'
-    bin/: 'bin/**/*.coffee'
+    # bin/: 'bin/**/*.coffee'

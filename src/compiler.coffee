@@ -75,8 +75,7 @@ class Compiler
     return steps
 
   compile: (type, _output, inputs) ->
-    destination = undefined
-
+    relatedUrl = '/' + _output
     output = path.join path.join @configuration.root, _output
 
     outputText = chalk.white output
@@ -98,7 +97,9 @@ class Compiler
         if @configuration.minify and minifier?
           fullExtension = '.min' + fullExtension
 
-        output += output
+        output += fullExtension
+        relatedUrl += fullExtension
+
         destination = path.dirname output
 
       else
@@ -115,7 +116,6 @@ class Compiler
       if @configuration.minify and minifier?
         minifierTransform = @transform {}
         steps.push minifierTransform minifier
-        console.log 'minfiy time'
 
       if @configuration.liveReload.enabled
         steps.push filters.livereload @glp.liveReload
@@ -124,9 +124,9 @@ class Compiler
       stream = stream.pipe step for step in steps
 
       return stream
-
+  
     build gulp.src inputs
-    return destination
+    return relatedUrl
 
 
 module.exports = {Compiler}

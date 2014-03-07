@@ -28,22 +28,21 @@ class GLP
         nextConfiguration = lodash.merge {}, defaults
         configuration = lodash.merge nextConfiguration, configuration
 
-        # Wrap into orchestrator
-        for name, _ of configuration.tasks
-          gulp.task name, =>
-            winston.info 'Running task: ' + chalk.white @task
+        lodash.merge configuration, configuration.tasks[@task]
 
-            taskConfiguration = lodash.merge {}, configuration
-            lodash.merge taskConfiguration, configuration.tasks[@task]
+        @initialize configuration
 
-            @initialize taskConfiguration
+  eventWatched: (filetype) -> (options) =>
+    {type, path} = options
 
-        gulp.start @task
+    if @configuration.static.enabled
+      relatedFiles = @outputs[filetype]
+    else
+      relatedFiles = [path]
 
-  eventWatched: (type, path) =>
     @liveReload?.changed
       body:
-        files: @outputs.concat path
+        files: relatedFiles
 
   initialize: (@configuration) ->
     watchStatus = chalk.white 'enabled' if @configuration.watch
@@ -54,22 +53,32 @@ class GLP
 
     @run()
 
-    if @configuration.watch and not @stream?
-      @stream = gulp.watch '**/*.coffee', [@task], @eventWatched
-
   run: ->
+    @outputs = {}
     types = lodash.keys @configuration.files
     lodash.map types, @compile
 
   compile: (type) =>
-    outputs = @configuration.files[type]
-    throw new Error 'No inputs defined for ' + type unless outputs?
+    @outputs[type] = []
+    allInputs = []
 
-    compiler = new Compiler @
+    gulp.task type, =>
+      winston.info 'Running task: ' + chalk.white type
 
-    @outputs = []
-    for output, inputs of outputs
-      @outputs.push compiler.compile type, output, inputs
+      outputs = @configuration.files[type]
+      throw new Error 'No inputs defined for ' + type unless outputs?
+
+      compiler = new Compiler @
+
+      for output, inputs of outputs
+        @outputs[type].push compiler.compile type, output, inputs
+        allInputs = lodash.unique lodash.flatten allInputs.concat inputs
+
+    gulp.start type
+
+    if @configuration.watch
+      stream = gulp.watch allInputs, [type]
+      stream.on 'change', @eventWatched type
 
 
 module.exports = {GLP}

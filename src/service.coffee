@@ -36,12 +36,12 @@ serve = (glp) ->
 
   glp.service = express()
 
+  # Enable live-reload server if requested
+  enableLiveReload glp if configuration.liveReload.enabled
+
   # Set up static file serving
   glp.service.use express.static configuration.root
   glp.service.use express.directory configuration.root
-
-  # Enable live-reload server if requested
-  enableLiveReload glp if configuration.liveReload.enabled
 
   glp.service.listen configuration.static.port
 
