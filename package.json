@@ -4,7 +4,7 @@
   "description": "Abstract various configuration formats through gulp.",
   "main": "lib/glp",
   "scripts": {
-    "prepublish": "gulp",
+    "prepublish": "node_modules/.bin/coffee bin/glp.coffee release",
     "test": "mocha"
   },
   "bin": {
