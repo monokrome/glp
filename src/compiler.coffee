@@ -29,12 +29,14 @@ class Compiler
         @configuration.filters[type] = newFilter
 
   transform: (hints) -> (transform) =>
+    options = @configuration.plugins[transform] or {}
+
     if lodash.isString transform
-      options = @configuration.plugins[transform] or {}
       transform = require 'gulp-' + transform
 
     if lodash.isFunction transform
-      transform = transform lodash.merge options, options.hints
+      options = lodash.merge {}, hints, options
+      transform = transform options
 
     return transform
 
@@ -42,7 +44,7 @@ class Compiler
     steps = []
 
     typeFilters = @configuration.filters[type]
-    return unless typeFilters?
+    return steps unless typeFilters?
 
     for name, options of typeFilters
       winston.debug 'Applying ' + name + ' filter for ' + type

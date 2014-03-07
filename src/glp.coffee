@@ -63,7 +63,6 @@ class GLP
     compiler = new Compiler @
 
     @outputs = []
-
     for output, inputs of outputs
       @outputs.push compiler.compile type, output, inputs
 

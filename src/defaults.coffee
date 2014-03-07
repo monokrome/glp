@@ -1,7 +1,7 @@
 lodash = require 'lodash'
 
 
-module.exports =
+defaults =
   root: 'public'
 
   watch: no
@@ -21,6 +21,7 @@ module.exports =
   filters:
     scripts:
       coffee: {}
+
       jade:
         options:
           client: true
@@ -31,6 +32,10 @@ module.exports =
 
       stylus:
         transforms: 'stylus'
+
+        hints:
+          use: ['nib']
+
         matches: [
           '**/*.styl'
           '**/*.stylus'
@@ -40,6 +45,15 @@ module.exports =
       jade:
         options:
           client: false
+
+    images:
+      imagemin:
+        matches: [
+          '**/*.png'
+          '**/*.gif'
+          '**/*.jpg'
+          '**/*.jpeg'
+        ]
 
   minifiers:
     js: 'uglify'
@@ -86,3 +100,11 @@ module.exports =
 
         jade:
           pretty: no
+
+
+# Alias some things for use preference reasons.
+defaults.filters.styles = defaults.filters.stylesheets
+defaults.filters.javascripts = defaults.filters.scripts
+
+
+module.exports = defaults
