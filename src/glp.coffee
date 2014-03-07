@@ -30,11 +30,8 @@ class GLP
         # Wrap into orchestrator
         for name, _ of configuration.tasks
           gulp.task name, =>
-            # Apply the current task settings into the configuration
-            lodash.merge configuration, configuration.tasks[@task]
-
             winston.info 'Running task: ' + chalk.white @task
-            @initialize configuration
+            @initialize lodash.merge {}, configuration, configuration.tasks[@task]
 
         gulp.start @task
 
