@@ -8,7 +8,6 @@ winston = require 'winston'
 filters =
   changed: require 'gulp-changed'
   cached: require 'gulp-cached'
-  clean: require 'gulp-clean'
   concat: require 'gulp-concat'
   filter: require 'gulp-filter'
   livereload: require 'gulp-livereload'
@@ -137,13 +136,11 @@ class Compiler
 
       return stream
   
-    stream = gulp.src inputs,
+    build gulp.src inputs,
       options:
         root: process.cwd()
         nosort: true
         nocase: true
-
-    build stream.pipe filters.clean()
 
     return relatedUrl
 

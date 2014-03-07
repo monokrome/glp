@@ -42,7 +42,6 @@
     "async": "^0.2.10",
     "gulp-imagemin": "^0.1.5",
     "gulp-changed": "^0.2.1",
-    "gulp-cached": "0.0.3",
-    "gulp-clean": "^0.2.4"
+    "gulp-cached": "0.0.3"
   }
 }
