@@ -3,19 +3,22 @@ lodash = require 'lodash'
 
 defaults =
   root: 'public'
-
   watch: no
+
+  minify: no
+  debug: no
 
   files:  {}
 
   plugins:
+    cached:
+      optimizeMemory: yes
+
     uglify:
       outSourceMap: yes
 
     jade:
       pretty: yes
-
-  minify: no
 
   filters:
     scripts:

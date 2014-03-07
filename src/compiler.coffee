@@ -8,6 +8,7 @@ winston = require 'winston'
 filters =
   changed: require 'gulp-changed'
   cached: require 'gulp-cached'
+  clean: require 'gulp-clean'
   concat: require 'gulp-concat'
   filter: require 'gulp-filter'
   livereload: require 'gulp-livereload'
@@ -109,10 +110,16 @@ class Compiler
 
       steps = []
 
-      steps.push filters.cached type
-      steps.push filters.changed destination
+      unless shouldConcat
+        cachedOptions = @configuration.plugins.cached or {}
+        steps.push filters.cached type, cachedOptions
 
-      steps.push filters.plumber() if @configuration.watch
+        changedOptions = @configuration.plugins.changed or {}
+        steps.push filters.changed destination
+
+      if @configuration.watch
+        steps.push filters.plumber()
+
       steps = steps.concat @filteredPipeline type, output
 
       if shouldConcat
@@ -122,15 +129,21 @@ class Compiler
         minifierTransform = @transform {}
         steps.push minifierTransform minifier
 
-      if @configuration.liveReload.enabled
-        steps.push filters.livereload @glp.liveReload
-
       steps.push gulp.dest destination
       stream = stream.pipe step for step in steps
 
+      if @configuration.liveReload.enabled
+        stream.pipe filters.livereload @glp.liveReload
+
       return stream
   
-    build gulp.src inputs
+    build gulp.src inputs,
+      read: false
+      options:
+        root: process.cwd()
+        nosort: true
+        nocase: true
+
     return relatedUrl
 
 
