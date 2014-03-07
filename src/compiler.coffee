@@ -73,11 +73,13 @@ class Compiler
     return steps
 
   compile: (type, _output, inputs) ->
+    destination = undefined
+
     output = path.join path.join @configuration.root, _output
 
     outputText = chalk.white output
     typeText = chalk.white type
-    winston.info 'Compiling to ' + outputText + ' as ' + typeText
+    winston.debug 'Compiling to ' + outputText + ' as ' + typeText
 
     inputs = [inputs] if lodash.isString inputs
 
@@ -118,7 +120,10 @@ class Compiler
       steps.push gulp.dest destination
       stream = stream.pipe step for step in steps
 
+      return stream
+
     build gulp.src inputs
+    return destination
 
 
 module.exports = {Compiler}

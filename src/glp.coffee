@@ -35,6 +35,11 @@ class GLP
 
         gulp.start @task
 
+  eventWatched: (type, path) =>
+    @liveReload?.changed
+      body:
+        files: @outputs.concat path
+
   initialize: (@configuration) ->
     watchStatus = chalk.white 'enabled' if @configuration.watch
     watchStatus ?= chalk.white 'disabled'
@@ -44,7 +49,8 @@ class GLP
 
     @run()
 
-    gulp.watch '**/*.coffee', [@task] if @configuration.watch
+    if @configuration.watch and not @stream?
+      @stream = gulp.watch '**/*.coffee', [@task], @eventWatched
 
   run: ->
     types = lodash.keys @configuration.files
@@ -56,8 +62,10 @@ class GLP
 
     compiler = new Compiler @
 
+    @outputs = []
+
     for output, inputs of outputs
-      compiler.compile type, output, inputs
+      @outputs.push compiler.compile type, output, inputs
 
 
 module.exports = {GLP}
