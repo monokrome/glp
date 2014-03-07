@@ -1,5 +1,6 @@
-root: 'lib'
+root: ''
 
 files:
   scripts:
-    glp/: 'src/**/*.coffee'
+    lib/glp/: 'src/**/*.coffee'
+    bin/: 'bin/**/*.coffee'

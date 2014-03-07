@@ -8,7 +8,7 @@
     "test": "mocha"
   },
   "bin": {
-    "glp": "./bin/glp.coffee"
+    "glp": "./bin/glp.js"
   },
   "author": "Brandon R. Stoner <monokrome@limpidtech.com> (http://monokro.me)",
   "license": "MIT",
