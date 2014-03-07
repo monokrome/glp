@@ -1,6 +1,7 @@
 *.log
 
 /build/*
+/bin/*.js
 /lib/*
 
 /node_modules/

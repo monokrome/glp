@@ -1,11 +1,14 @@
 {
   "name": "glp",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Abstract various configuration formats through gulp.",
   "main": "lib/glp",
   "scripts": {
-    "prepublish": "gulp",
+    "prepublish": "node_modules/.bin/coffee bin/glp.coffee release",
     "test": "mocha"
+  },
+  "bin": {
+    "glp": "./bin/glp.js"
   },
   "author": "Brandon R. Stoner <monokrome@limpidtech.com> (http://monokro.me)",
   "license": "MIT",
@@ -33,6 +36,11 @@
     "gulp-uglify": "~0.2.1",
     "gulp-minify-css": "~0.3.0",
     "coffee-script": "~1.7.1",
-    "express": "^3.4.8"
+    "express": "^3.4.8",
+    "winston": "^0.7.2",
+    "yargs": "^1.2.1",
+    "chalk": "^0.4.0",
+    "async": "^0.2.10",
+    "gulp-imagemin": "^0.1.5"
   }
 }
