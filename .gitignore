@@ -6,6 +6,8 @@
 
 /node_modules/
 
+/Project.vim
+
 /.*
 !/.git*
 !/.npm*

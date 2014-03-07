@@ -24,5 +24,7 @@ src/*
 build/*
 test/*
 
+/Project.vim
+
 .*
 !.npm*
