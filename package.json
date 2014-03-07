@@ -1,10 +1,9 @@
 {
   "name": "glp",
-  "version": "0.1.0-hotfix2",
+  "version": "0.1.0-hotfix3",
   "description": "Abstract various configuration formats through gulp.",
   "main": "lib/glp/index.js",
   "scripts": {
-    "prepublish": "node_modules/.bin/coffee bin/glp.coffee",
     "test": "mocha"
   },
   "bin": {
