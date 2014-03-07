@@ -115,6 +115,7 @@ class Compiler
       if @configuration.minify and minifier?
         minifierTransform = @transform {}
         steps.push minifierTransform minifier
+        console.log 'minfiy time'
 
       if @configuration.liveReload.enabled
         steps.push filters.livereload @glp.liveReload
