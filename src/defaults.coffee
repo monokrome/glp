@@ -57,6 +57,8 @@ defaults =
           '**/*.jpeg'
         ]
 
+  concatenators: {}
+
   minifiers:
     js: 'uglify'
     css: 'minify-css'
@@ -110,6 +112,8 @@ defaults.extensions.javascripts = defaults.extensions.scripts
 
 defaults.tasks.serve = defaults.tasks.server
 defaults.tasks.production = defaults.tasks.release
+
+defaults.concat = defaults.concatenators
 
 
 module.exports = defaults

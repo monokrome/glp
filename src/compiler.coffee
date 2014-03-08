@@ -5,6 +5,9 @@ path = require 'path'
 winston = require 'winston'
 
 
+{localRequire} = require './util'
+
+
 filters =
   changed: require 'gulp-changed'
   cached: require 'gulp-cached'
@@ -34,7 +37,7 @@ class Compiler
     options = @configuration.plugins[transform] or {}
 
     if lodash.isString transform
-      transform = require 'gulp-' + transform
+      transform = localRequire 'gulp-' + transform
 
     if lodash.isFunction transform
       options = lodash.merge {}, hints, options
