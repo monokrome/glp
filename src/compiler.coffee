@@ -131,9 +131,15 @@ class Compiler
         concatWith ?= filters.concat
 
         if lodash.isString concatWith
+          concatOptions = @configuration.plugins[concatWith]
           concatWith = localRequire 'gulp-' + concatWith
+        else
+          concatOptions = @configuration.plugins.concat
+        
+        concatOptions ?= {}
+        concatenatePath = path.basename output
 
-        steps.push concatWith path.basename output
+        steps.push concatWith concatenatePath, concatOptions
 
       if @configuration.minify and minifier?
         minifierTransform = @transform {}
