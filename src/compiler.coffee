@@ -131,7 +131,7 @@ class Compiler
         concatWith ?= filters.concat
 
         if lodash.isString concatWith
-          concatWith = transformConcat concatWith
+          concatWith = localRequire 'gulp-' + concatWith
 
         steps.push concatWith path.basename output
 
