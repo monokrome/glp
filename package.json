@@ -5,7 +5,7 @@
   "main": "lib/glp/index.js",
   "scripts": {
     "test": "mocha"
-  }
+  },
   "bin": {
     "glp": "./bin/glp.js"
   },
