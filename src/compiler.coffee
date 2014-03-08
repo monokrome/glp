@@ -125,7 +125,15 @@ class Compiler
       steps = steps.concat @filteredPipeline type, output
 
       if shouldConcat
-        steps.push filters.concat path.basename output
+        transformConcat = @transform {}
+
+        concatWith = @configuration.concatenators[type]
+        concatWith ?= filters.concat
+
+        if lodash.isString concatWith
+          concatWith = transformConcat concatWith
+
+        steps.push concatWith path.basename output
 
       if @configuration.minify and minifier?
         minifierTransform = @transform {}
