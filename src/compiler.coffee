@@ -36,12 +36,26 @@ class Compiler
   transform: (hints) -> (transform) =>
     options = @configuration.plugins[transform] or {}
 
+    if lodash.isArray options
+      args = options
+
+      if args.length > 0
+        options = args[args.length - 1]
+      else
+        options = {}
+
+    if lodash.isObject options
+      options = lodash.merge {}, hints, options
+
+    args ?= []
+    args.push options
+
     if lodash.isString transform
       transform = localRequire 'gulp-' + transform
 
     if lodash.isFunction transform
-      options = lodash.merge {}, hints, options
-      transform = transform options
+      console.log args
+      transform = transform.apply @, args
 
     return transform
 
