@@ -54,7 +54,6 @@ class Compiler
       transform = localRequire 'gulp-' + transform
 
     if lodash.isFunction transform
-      console.log args
       transform = transform.apply @, args
 
     return transform
