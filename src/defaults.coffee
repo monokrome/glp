@@ -74,6 +74,8 @@ defaults =
     inject: yes
 
   static:
+    directories: no
+    catchAll: null
     enabled: no
     port: 3333
 

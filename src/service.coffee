@@ -1,7 +1,8 @@
-lr = require 'tiny-lr'
 chalk = require 'chalk'
 express = require 'express'
 liveReload = require 'connect-livereload'
+lr = require 'tiny-lr'
+path = require 'path'
 winston = require 'winston'
 
 
@@ -41,9 +42,16 @@ serve = (glp) ->
 
   # Set up static file serving
   glp.service.use express.static configuration.root
-  glp.service.use express.directory configuration.root
+
+  if configuration.static.directories
+    glp.service.use express.directory configuration.root
 
   glp.service.listen configuration.static.port
+
+  if configuration.static.catchAll?
+    glp.service.all '*', (request, response, next) ->
+      response.sendfile configuration.static.catchAll,
+        root: configuration.root
 
   address = chalk.white 'http://localhost:' + configuration.static.port
   winston.info 'Serving static files at ' + address
