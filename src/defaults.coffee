@@ -48,16 +48,7 @@ defaults =
         options:
           client: false
 
-    images:
-      imagemin:
-        matches: [
-          '**/*.png'
-          '**/*.gif'
-          '**/*.jpg'
-          '**/*.jpeg'
-        ]
-
-  concatenators: {}
+      concatenators: {}
 
   minifiers:
     js: 'uglify'
