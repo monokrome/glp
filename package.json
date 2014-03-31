@@ -1,6 +1,6 @@
 {
   "name": "glp",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Abstract various configuration formats through gulp.",
   "main": "lib/glp/index.js",
   "scripts": {
@@ -42,6 +42,6 @@
     "async": "^0.2.10",
     "gulp-imagemin": "^0.1.5",
     "gulp-changed": "^0.2.1",
-    "gulp-cached": "0.0.3"
+    "gulp-cached": "^0.0.3"
   }
 }
