@@ -48,7 +48,7 @@ defaults =
         options:
           client: false
 
-      concatenators: {}
+  concatenators: {}
 
   minifiers:
     js: 'uglify'
