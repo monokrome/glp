@@ -10,6 +10,8 @@ winston = require 'winston'
 
 
 class GLP
+  changedFiles: []
+
   constructor: (task, @configurator) ->
     @configure task
 
@@ -33,16 +35,19 @@ class GLP
         @initialize configuration
 
   eventWatched: (filetype) -> (options) =>
-    {type, path} = options
-
     if @configuration.static.enabled
-      relatedFiles = @outputs[filetype]
+      @changedFiles = @changedFiles.concat @outputs[filetype]
     else
-      relatedFiles = [path]
+      {type, path} = options
+      @changedFiles.push path
 
+  reload: ->
+    console.log 'Reloading', @changedFiles
     @liveReload?.changed
       body:
-        files: relatedFiles
+        files: @changedFiles
+
+    @changedFiles = []
 
   initialize: (@configuration) ->
     watchStatus = chalk.white 'enabled' if @configuration.watch
@@ -77,8 +82,9 @@ class GLP
     gulp.start type
 
     if @configuration.watch
-      stream = gulp.watch allInputs, [type]
-      stream.on 'change', @eventWatched type
+      gulp.on 'stop', (args...) => @reload args...
+      gulp.watch allInputs, [type]
+        .on 'change', @eventWatched type
 
 
 module.exports = {GLP}
