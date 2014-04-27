@@ -108,7 +108,10 @@ class Compiler
       shouldConcat = output[output.length - 1] isnt '/'
 
       extension = @configuration.extensions[type]
-      minifier = @configuration.minifiers[extension]
+      minifiers = @configuration.minifiers[extension]
+
+      minifiers = [] unless minifiers?
+      minifiers = ensureArray minifiers
 
       # Currently supports legacy usage.
       # DEPRECATED Will be removed for v0.4.0
@@ -122,7 +125,7 @@ class Compiler
       if extension? and shouldConcat
         fullExtension = '.' + extension
 
-        if @configuration.minify.enabled and minifier?
+        if @configuration.minify.enabled and minifiers.length
           fullExtension = @configuration.minify.extension + fullExtension
 
         output += fullExtension
@@ -164,9 +167,9 @@ class Compiler
 
         steps.push concatWith concatenatePath, concatOptions
 
-      if @configuration.minify.enabled and minifier?
+      if @configuration.minify.enabled
         minifierTransform = @transform {}
-        steps.push minifierTransform minifier
+        steps.push minifierTransform minifier for minifier in minifiers
 
       steps.push gulp.dest destination
       stream = stream.pipe step for step in steps
