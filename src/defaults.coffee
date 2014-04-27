@@ -5,8 +5,10 @@ defaults =
   root: 'public'
   watch: no
 
-  minify: no
   debug: no
+  minify:
+    enabled: no
+    extension: '.min'
 
   files:  {}
 
@@ -86,7 +88,8 @@ defaults =
         enabled: yes
 
     release:
-      minify: yes
+      minify:
+        enabled: yes
 
       plugins:
         uglify:
@@ -96,7 +99,7 @@ defaults =
           pretty: no
 
 
-# Alias some things for use preference reasons.
+# Alias some things for use preferential reasons.
 defaults.filters.styles = defaults.filters.stylesheets
 defaults.filters.javascripts = defaults.filters.scripts
 

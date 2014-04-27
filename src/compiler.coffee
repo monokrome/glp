@@ -3,6 +3,7 @@ gulp = require 'gulp'
 lodash = require 'lodash'
 path = require 'path'
 winston = require 'winston'
+defaults = require './defaults'
 
 
 {localRequire} = require './util'
@@ -109,11 +110,20 @@ class Compiler
       extension = @configuration.extensions[type]
       minifier = @configuration.minifiers[extension]
 
+      # Currently supports legacy usage.
+      # DEPRECATED Will be removed for v0.4.0
+      if lodash.isBoolean @configuration.minify
+        # TODO: Better documentation for structure
+        winston.warn 'Configuring "minify" as a boolean is deprecated.'
+
+        @configuration.minify = lodash.assign {}, defaults.minify,
+          enabled: @configuration.minify
+
       if extension? and shouldConcat
         fullExtension = '.' + extension
 
-        if @configuration.minify and minifier?
-          fullExtension = '.min' + fullExtension
+        if @configuration.minify.enabled and minifier?
+          fullExtension = @configuration.minify.extension + fullExtension
 
         output += fullExtension
         relatedUrl += fullExtension
@@ -148,13 +158,13 @@ class Compiler
           concatWith = localRequire 'gulp-' + concatWith
         else
           concatOptions = @configuration.plugins.concat
-        
+
         concatOptions ?= {}
         concatenatePath = path.basename output
 
         steps.push concatWith concatenatePath, concatOptions
 
-      if @configuration.minify and minifier?
+      if @configuration.minify.enabled and minifier?
         minifierTransform = @transform {}
         steps.push minifierTransform minifier
 
