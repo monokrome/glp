@@ -42,7 +42,6 @@ class GLP
       @changedFiles.push path
 
   reload: ->
-    console.log 'Reloading', @changedFiles
     @liveReload?.changed
       body:
         files: @changedFiles
