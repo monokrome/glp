@@ -4,7 +4,7 @@
   "description": "Abstract various configuration formats through gulp.",
   "main": "lib/glp/index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "./node_modules/.bin/mocha"
   },
   "bin": {
     "glp": "./bin/glp.js"
