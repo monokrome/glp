@@ -67,7 +67,7 @@ class GLP
     allInputs = []
 
     gulp.task type, =>
-      winston.info 'Running task: ' + chalk.white type
+      winston.debug 'Running task: ' + chalk.white type
 
       outputs = @configuration.files[type]
       throw new Error 'No inputs defined for ' + type unless outputs?
@@ -78,6 +78,7 @@ class GLP
         @outputs[type].push compiler.compile type, output, inputs
         allInputs = lodash.unique lodash.flatten allInputs.concat inputs
 
+    winston.info 'Configured task: ' + chalk.white type
     gulp.start type
 
     if @configuration.watch
