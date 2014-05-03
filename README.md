@@ -22,7 +22,7 @@ The configuration file format for GLP provides users the ability to instruct
 GLP exactly how you want your files built. Some potential ways to configure GLP
 include:
 
-- **paths** to place files in
+- **paths** to find and place files in
 - **filters** for introducing new file formats
 - **plugins** options for changing the way that glp uses gulp plugins
 - **concatenators** for defining which plugins are used for joining built files together
