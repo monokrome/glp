@@ -9,8 +9,8 @@ Usage
 
 Firstly, install `glp`. It is recommended to be installed globally, but it is
 not a requirement. Installing it globally may be unnecessary if you have
-`./node_modules/.bin` in your path or if you run it manually via another means
-- such as `npm start`.
+`./node_modules/.bin` in your path or if you run it manually via other
+means - such as `npm start`.
 
 In most cases, you can put your app's files into a `src` directory, and glp
 will build them into the `public` directory. This will be compiled with the
