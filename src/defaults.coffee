@@ -118,17 +118,4 @@ defaults =
           pretty: no
 
 
-# Alias some things for use preferential reasons.
-defaults.filters.styles = defaults.filters.stylesheets
-defaults.filters.javascripts = defaults.filters.scripts
-
-defaults.extensions.styles = defaults.extensions.stylesheets
-defaults.extensions.javascripts = defaults.extensions.scripts
-
-defaults.tasks.serve = defaults.tasks.server
-defaults.tasks.production = defaults.tasks.release
-
-defaults.concat = defaults.concatenators
-
-
 module.exports = defaults
