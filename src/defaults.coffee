@@ -4,13 +4,32 @@ lodash = require 'lodash'
 defaults =
   root: 'public'
   watch: no
-
   debug: no
+
   minify:
     enabled: no
     extension: '.min'
 
-  files:  {}
+  files:
+    scripts:
+      '/': [
+        'src/**/*.js'
+        'src/**/*.coffee'
+      ]
+
+    templates:
+      '/': [
+        'src/**/*.html'
+        'src/**/*.jade'
+      ]
+
+    stylesheets:
+      '/': [
+        'src/**/*.css'
+        'src/**/*.less'
+        'src/**/*.sass'
+        'src/**/*.stylus'
+      ]
 
   plugins:
     cached:
