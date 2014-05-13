@@ -1,13 +1,12 @@
 async = require 'async'
 chalk = require 'chalk'
-defaults = require './defaults'
 gulp = require 'gulp'
 lodash = require 'lodash'
 winston = require 'winston'
 
 {Compiler} = require './compiler'
+{Configuration} = require './configuration'
 {serve} = require './service'
-
 
 class GLP
   changedFiles: []
@@ -26,13 +25,8 @@ class GLP
           subset = configuration[partition]
           configuration = subset if subset?
 
-        # Inherit default options
-        nextConfiguration = lodash.merge {}, defaults
-        configuration = lodash.merge nextConfiguration, configuration
-
-        lodash.merge configuration, configuration.tasks[@task]
-
-        @initialize configuration
+        configuration = new Configuration configuration, @task
+        @initialize configuration.data
 
   eventWatched: (filetype) -> (options) =>
     if @configuration.static.enabled
@@ -51,8 +45,8 @@ class GLP
   initialize: (@configuration) ->
     watchStatus = chalk.white 'enabled' if @configuration.watch
     watchStatus ?= chalk.white 'disabled'
-    winston.debug 'watch mode is ' + watchStatus
 
+    winston.debug 'watch mode is ' + watchStatus
     serve.call @, @ if @configuration.static.enabled
 
     @run()
@@ -88,3 +82,4 @@ class GLP
 
 
 module.exports = {GLP}
+
