@@ -78,7 +78,6 @@ class GLP
     if @configuration.watch
       gulp.on 'stop', (args...) => @reload args...
       gulp.watch allInputs, [type]
-        .on 'change', @eventWatched type
 
 
 module.exports = {GLP}
