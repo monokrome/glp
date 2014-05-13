@@ -1,6 +1,6 @@
 {
   "name": "glp",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "Abstract various configuration formats through gulp.",
   "main": "lib/glp/index.js",
   "scripts": {
@@ -37,7 +37,7 @@
     "gulp-watch": "^0.5.4",
     "lodash": "^2.4.1",
     "mocha": "^1.18.2",
-    "prefer": "^0.5.3",
+    "prefer": "^0.5.4",
     "sinon": "^1.9.1",
     "tiny-lr": "0.0.5",
     "winston": "^0.7.3",
