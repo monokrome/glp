@@ -172,10 +172,11 @@ class Compiler
         steps.push minifierTransform minifier for minifier in minifiers
 
       steps.push gulp.dest destination
-      stream = stream.pipe step for step in steps
 
       if @configuration.liveReload.enabled
-        stream.pipe filters.livereload @glp.liveReload
+        steps.push filters.livereload @glp.liveReload
+
+      stream = stream.pipe step for step in steps
 
       return stream
   
