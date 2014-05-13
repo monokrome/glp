@@ -6,6 +6,12 @@ defaults =
   watch: no
   debug: no
 
+  globOptions:
+    default:
+      options:
+        nosort: true
+        nocase: true
+
   minify:
     enabled: no
     extension: '.min'

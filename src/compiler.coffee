@@ -180,11 +180,12 @@ class Compiler
 
       return stream
   
-    build gulp.src inputs,
-      options:
-        root: process.cwd()
-        nosort: true
-        nocase: true
+    globOptions = lodash.first lodash.filter [
+      @configuration.globOptions[type]
+      @configuration.globOptions.default
+    ]
+
+    build gulp.src inputs, globOptions
 
     return relatedUrl
 
