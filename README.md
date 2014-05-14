@@ -17,6 +17,14 @@ command:
 npm install -g glp
 ```
 
+If you get an error that you don't have permission to the files or you don't
+want to install it globally, you can install it into your current directory's
+*node_modules* with this terminal command:
+
+```sh
+npm install glp
+```
+
 In most cases, you can put your app's files into a `src` directory, and glp
 will build them into the `public` directory. This will be compiled with the
 provided [default configuration][defconf], but you can always create your own
