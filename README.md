@@ -35,15 +35,15 @@ The configuration file format for GLP provides users the ability to instruct
 GLP exactly how you want your files built. Some potential ways to configure GLP
 include:
 
-- **files** with *named types* and where to find them
-- **filters** for introducing new file formats
-- **plugins** options for changing the way that glp uses gulp plugins
-- **concatenators** for defining which plugins are used for joining built files together
-- **minifiers** for changing how file types are minified
-- **extensions** for defining the suffix of outut files.
-- **liveReload** options for defining how changing files affects your browser
-- **static** options for defining routing to GLP's web server
-- **tasks** to run with the GLP command-line tool
+- **files** with *named groups* and where to find them
+- **filters** for introducing new ways to transform files in *file group*
+- **plugins** options for changing the way that glp uses them for each *file group*
+- **concatenators** for defining which plugins are used for joining files in a *file group*
+- **minifiers** for changing how a *file group* is minified
+- **extensions** for defining the suffix of output files for each *file group*.
+- **liveReload** options for defining changes affect your browser after compiling.
+- **static** options for defining routing of built files to a local web server
+- **tasks** to overlay different groupings of options based on command-line arguments
 
 
 [defconf]: https://github.com/monokrome/glp/tree/master/src/defaults.coffee
