@@ -27,9 +27,18 @@ npm install glp
 
 In most cases, you can put your app's files into a `src` directory, and glp
 will build them into the `public` directory. This will be compiled with the
-provided [default configuration][defconf], but you can always create your own
-configuration file if you would like to specify a more complicated build
-process.
+provided [default configuration][defconf], but you can always define your own
+configuration options if you would like to specify a more complicated build
+process. To create a default configuration, just create a new file called
+`glp.yml` and give it the following content:
+
+```yaml
+glp: {}
+```
+
+Thanks to [PreferJS][prefer], the configuration file can also be placed in
+`etc/glp.yml`, `~/.config/glp.yml`, `~/glp.yml`, `/usr/local/etc/glp.yml`
+or any other standard locations on both Windows and UNIX platforms.
 
 The configuration file format for GLP provides users the ability to instruct
 GLP exactly how you want your files built. Some potential ways to configure GLP
@@ -45,6 +54,10 @@ include:
 - **static** options for defining routing of built files to a local web server
 - **tasks** to overlay different groupings of options based on command-line arguments
 
+More details for configuration can be [found here][defaults].
 
+
+[prefer]: https://github.com/LimpidTech/prefer
 [defconf]: https://github.com/monokrome/glp/tree/master/src/defaults.coffee
+[defaults]: https://github.com/monokrome/glp/blob/master/src/defaults.litcoffee
 
