@@ -140,6 +140,9 @@ class Compiler
 
       steps = []
 
+      if @configuration.watch
+        steps.push filters.plumber()
+
       if @configuration.cache.enabled
         cacheOptions = @configuration.plugins.cache or {}
         steps.push filters.cache output, cacheOptions
@@ -148,14 +151,13 @@ class Compiler
         steps.push filters.changed output,
           extension: extension
 
-      if @configuration.watch
-        steps.push filters.plumber()
-
       steps = steps.concat @filteredPipeline type, output
+
+      ordering = @configuration.ordering?[type]
 
       if shouldConcat
         steps.push filters.remember output
-        # steps.push filters.order type, inputs
+        steps.push filters.order ordering if ordering?
 
         transformConcat = @transform {}
 
