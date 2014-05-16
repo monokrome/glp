@@ -31,7 +31,7 @@ configuration. It should help increase familiarity with all features, and how
 to get started with building your own software using GLP and your favorite
 programming languages.
 
-## How users configure prefer
+## How GLP configuration works
 
 This is a `.litcoffee` file, so we will be using the default configuration as a
 practical example of what you can do when writing a configuration file. The
