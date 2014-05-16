@@ -31,10 +31,28 @@ configuration. It should help increase familiarity with all features, and how
 to get started with building your own software using GLP and your favorite
 programming languages.
 
+## How users configure prefer
 
-# Options
+This is a `.litcoffee` file, so we will be using the default configuration as a
+practical example of what you can do when writing a configuration file. The
+documented values are exactly what is exported to the compiler in GLP.
 
     module.exports =
+
+These defaults are always overridden with any user-specific settings. When a
+configuration file is loaded, GLP will run [lodash.merge][lodashmerge] in order
+to merge the user's configuration data over the defaults. Once this is done,
+the current *task* is merged in order to define commands which change behavior.
+
+The one exception to this rule is the *files* option, which will be completely
+overriden if provided by a user instead of being merged into the default
+configuration. The *files* option will still be merged (instead of replaced) if
+modified by *tasks*.
+
+Don't  feel discouraged if this seems confusing. It will make more sense as you
+read through this document and develop a better understanding of GLP's options.
+
+# Options
 
 ## root
 
@@ -450,3 +468,4 @@ different way. This is exactly how `glp release` works:
 [gulpminifycss]: https://www.npmjs.org/package/gulp-minify-css
 [gulpcached]: https://www.npmjs.org/package/gulp-cached
 [localserver]: http://localhost:3333/
+[lodashmerge]: http://lodash.com/docs#merge
