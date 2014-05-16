@@ -12,6 +12,9 @@ defaults =
         nosort: true
         nocase: true
 
+  cache:
+    enabled: yes
+
   minify:
     enabled: no
     extension: '.min'

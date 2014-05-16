@@ -10,12 +10,14 @@ defaults = require './defaults'
 
 
 filters =
+  cache: require 'gulp-cached'
   changed: require 'gulp-changed'
-  cached: require 'gulp-cached'
   concat: require 'gulp-concat'
   filter: require 'gulp-filter'
   livereload: require 'gulp-livereload'
   plumber: require 'gulp-plumber'
+  remember: require 'gulp-remember'
+  order: require 'gulp-order'
 
 
 ensureArray = (value) ->
@@ -138,12 +140,13 @@ class Compiler
 
       steps = []
 
-      unless shouldConcat
-        cachedOptions = @configuration.plugins.cached or {}
-        changedOptions = @configuration.plugins.changed or {}
+      if @configuration.cache.enabled
+        cacheOptions = @configuration.plugins.cache or {}
+        steps.push filters.cache output, cacheOptions
 
-        steps.push filters.cached type, cachedOptions
-        steps.push filters.changed destination, changedOptions
+      unless shouldConcat
+        steps.push filters.changed output,
+          extension: extension
 
       if @configuration.watch
         steps.push filters.plumber()
@@ -151,6 +154,9 @@ class Compiler
       steps = steps.concat @filteredPipeline type, output
 
       if shouldConcat
+        steps.push filters.remember output
+        # steps.push filters.order type, inputs
+
         transformConcat = @transform {}
 
         concatWith = @configuration.concatenators[type]
@@ -179,7 +185,7 @@ class Compiler
       stream = stream.pipe step for step in steps
 
       return stream
-  
+
     globOptions = lodash.first lodash.filter [
       @configuration.globOptions[type]
       @configuration.globOptions.default
