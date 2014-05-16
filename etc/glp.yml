@@ -1,5 +1,12 @@
 root: ''
 
+filters:
+  scripts:
+    coffee:
+      matches:
+        - '**/*.coffee'
+        - '**/*.litcoffee'
+
 files:
   scripts:
     lib/glp/: 'src/**/*.coffee'
