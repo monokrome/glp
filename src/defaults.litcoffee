@@ -96,7 +96,7 @@ files for changes.
 
 The `cache.enabled` option is false by default, but can be made true if caching
 happens to be working as expected with your project. This feature is disabled
-by default because it is still experimental.
+by default because it is still experimental for now.
 
         enabled: no
 
