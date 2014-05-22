@@ -217,6 +217,8 @@ forward options to [gulp-jade][gulpjade] in this case.
 Some more default formats are provided here:
 
           iced: {}
+          livescript:
+            matches: '**/*.ls'
 
           handlebars:
             matches: '**/*.hbs'
@@ -348,6 +350,7 @@ files would also be concatenated and the resulting file would be given the
             'src/**/*.coffee'
             'src/**/*.iced'
             'src/**/*.co'
+            'src/**/*.ls'
             'src/**/*.hbs'
           ]
 
