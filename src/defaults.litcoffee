@@ -214,6 +214,11 @@ forward options to [gulp-jade][gulpjade] in this case.
             options:
               client: true
 
+Some more default formats are provided here:
+
+          handlebars:
+            matches: '**/*.hbs'
+
 For the stylesheets group, we set up *sass* and *less* so that they will be
 bound to files with matching extensions. We have no special options in these
 cases, so we can just assign an empty object to them and let GLP assign
@@ -326,16 +331,17 @@ with a slash, then the files will be copied into a **directory** containing
 an output file for every source file that was built. If the path does not
 end with a slash, then the  *concatenators* for this type will be used.
 
-In this case, we are building all files ending with `.js` or `.coffee`. After
-they are built, the resulting files will be placed in the directory specified
-by the **root** function as separate files. If the output file was not a
-**directory** (as denoted by the ending slash) then the files would also be
-concatenated and the resulting file would be given the *extension* which
-corresponds to this type of file.
+In this case, we are building all files ending with `.js`, `.coffee` and a few
+other extensions. After they are built, the resulting files will be placed in
+the directory specified by the **root** function as separate files. If the
+output file was not a **directory** (as denoted by the ending slash) then the
+files would also be concatenated and the resulting file would be given the
+*extension* which corresponds to this type of file.
 
           '/': [
             'src/**/*.js'
             'src/**/*.coffee'
+            'src/**/*.hbs'
           ]
 
 Here, we are doing the same thing for *html*, *jade*, and some other file
