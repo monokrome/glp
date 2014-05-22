@@ -94,10 +94,11 @@ files for changes.
 
       cache:
 
-The `cache.enabled` option is true by default, but can be made false if
-caching isn't working as expected with your project.
+The `cache.enabled` option is false by default, but can be made true if caching
+happens to be working as expected with your project. This feature is disabled
+by default because it is still experimental.
 
-        enabled: yes
+        enabled: no
 
 ## minify
 
