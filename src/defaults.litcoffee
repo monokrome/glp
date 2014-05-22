@@ -288,6 +288,9 @@ Some more default formats are provided here:
           markdown:
             matches: ['**/*.md', '**/*.markdown']
 
+          template:
+            matches: '**/*.tpl'
+
 ## concatenators
 
 If you need to use custom concatenation rules, you can define them here. This
@@ -380,6 +383,7 @@ extensions. This time we are outputting them with the `templates` file type.
             'src/**/*.haml'
             'src/**/*.ejs'
             'src/**/*.mustache'
+            'src/**/*.tpl'
           ]
 
 We are doing the same thing here but using different files and associating
