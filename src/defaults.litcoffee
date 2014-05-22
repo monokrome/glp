@@ -165,6 +165,11 @@ jade to render pretty files instead of spitting them out in a single line.
         jade:
           pretty: yes
 
+We'll also want source maps, so let's enabled those.
+
+        coffee:
+          sourceMap: yes
+
 The options provided here can also be overridden per-file-type with the
 *filters* option as described in the next section. Every setting can be
 overriden on a per-task basis as well. This means that we can tell GLP to not
@@ -452,6 +457,9 @@ different way. This is exactly how `glp release` works:
             enabled: yes
 
           plugins:
+            coffee:
+              sourceMap: no
+
             uglify:
               outSourceMap: no
 
