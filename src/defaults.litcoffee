@@ -361,7 +361,7 @@ output file was not a **directory** (as denoted by the ending slash) then the
 files would also be concatenated and the resulting file would be given the
 *extension* which corresponds to this type of file.
 
-          '/': [
+          '/scripts/': [
             'src/scripts/**/*.js'
             'src/scripts/**/*.coffee'
             'src/scripts/**/*.iced'
@@ -395,7 +395,7 @@ We are doing the same thing here but using different files and associating
 them to the *stylesheets* file type.
 
         stylesheets:
-          '/': [
+          '/stylesheets/': [
             'src/stylesheets/**/*.css'
             'src/stylesheets/**/*.less'
             'src/stylesheets/**/*.sass'
