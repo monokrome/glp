@@ -257,6 +257,11 @@ rendered as *js* files as  described previously.
             options:
               client: false
 
+Some more default formats are provided here:
+
+          markdown:
+            matches: ['**/*.md', '**/*.markdown']
+
 ## concatenators
 
 If you need to use custom concatenation rules, you can define them here. This
@@ -329,13 +334,15 @@ corresponds to this type of file.
             'src/**/*.coffee'
           ]
 
-Here, we are doing the same thing for *html* and *jade* files, but we are
-outputting them with the `templates` file type.
+Here, we are doing the same thing for *html*, *jade*, and some other file
+extensions. This time we are outputting them with the `templates` file type.
 
         templates:
           '/': [
             'src/**/*.html'
             'src/**/*.jade'
+            'src/**/*.md'
+            'src/**/*.markdown'
           ]
 
 We are doing the same thing here but using different files and associating
