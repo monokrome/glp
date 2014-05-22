@@ -230,6 +230,9 @@ Some more default formats are provided here:
           coco:
             matches: '**/*.co'
 
+          eco:
+            matches: '**/*.eco'
+
 For the stylesheets group, we set up *sass* and *less* so that they will be
 bound to files with matching extensions. We have no special options in these
 cases, so we can just assign an empty object to them and let GLP assign
@@ -357,6 +360,7 @@ files would also be concatenated and the resulting file would be given the
             'src/**/*.ls'
             'src/**/*.ts'
             'src/**/*.hbs'
+            'src/**/*.eco'
           ]
 
 Here, we are doing the same thing for *html*, *jade*, and some other file
