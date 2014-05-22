@@ -204,8 +204,6 @@ the process. This configuration file is all that you will need.
 
         scripts:
           coffee: {}
-          coco:
-            matches: '**/*.co'
 
 Scripts can also be compiled from jade templates. Since we have grouped
 filters with the *scripts* file group, we also know that we want the compiled
@@ -220,6 +218,9 @@ Some more default formats are provided here:
 
           handlebars:
             matches: '**/*.hbs'
+
+          coco:
+            matches: '**/*.co'
 
 For the stylesheets group, we set up *sass* and *less* so that they will be
 bound to files with matching extensions. We have no special options in these
