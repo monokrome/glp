@@ -217,6 +217,10 @@ forward options to [gulp-jade][gulpjade] in this case.
 Some more default formats are provided here:
 
           iced: {}
+
+          typescript:
+            matches: '**/*.ts'
+
           livescript:
             matches: '**/*.ls'
 
@@ -351,6 +355,7 @@ files would also be concatenated and the resulting file would be given the
             'src/**/*.iced'
             'src/**/*.co'
             'src/**/*.ls'
+            'src/**/*.ts'
             'src/**/*.hbs'
           ]
 

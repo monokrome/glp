@@ -42,6 +42,7 @@
     "gulp-remember": "^0.2.0",
     "gulp-sass": "^0.7.1",
     "gulp-stylus": "0.0.12",
+    "gulp-typescript": "^0.3.0",
     "gulp-uglify": "^0.2.1",
     "gulp-util": "^2.2.14",
     "gulp-watch": "^0.5.4",
