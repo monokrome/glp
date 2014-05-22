@@ -261,6 +261,7 @@ Some more default formats are provided here:
 
           haml: {}
           ejs: {}
+          mustache: {}
 
           markdown:
             matches: ['**/*.md', '**/*.markdown']
@@ -348,6 +349,7 @@ extensions. This time we are outputting them with the `templates` file type.
             'src/**/*.markdown'
             'src/**/*.haml'
             'src/**/*.ejs'
+            'src/**/*.mustache'
           ]
 
 We are doing the same thing here but using different files and associating
