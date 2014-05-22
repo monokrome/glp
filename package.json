@@ -29,6 +29,7 @@
     "gulp-filter": "^0.3.1",
     "gulp-haml": "0.0.8",
     "gulp-handlebars": "^2.1.0",
+    "gulp-iced": "0.0.2",
     "gulp-jade": "^0.4.2",
     "gulp-less": "^1.2.3",
     "gulp-livereload": "^1.5.0",
