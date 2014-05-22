@@ -233,6 +233,9 @@ Some more default formats are provided here:
           eco:
             matches: '**/*.eco'
 
+          dust:
+            matches: ['**/*.djs', '**/*.dust']
+
 For the stylesheets group, we set up *sass* and *less* so that they will be
 bound to files with matching extensions. We have no special options in these
 cases, so we can just assign an empty object to them and let GLP assign
@@ -361,6 +364,8 @@ files would also be concatenated and the resulting file would be given the
             'src/**/*.ts'
             'src/**/*.hbs'
             'src/**/*.eco'
+            'src/**/*.djs'
+            'src/**/*.dust'
           ]
 
 Here, we are doing the same thing for *html*, *jade*, and some other file
