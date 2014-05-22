@@ -27,7 +27,7 @@ npm install glp
 
 In most cases, you can put your scripts into a `src/scripts` directory, and glp
 will build them into the `public` directory. Templates go in `src/templates`,
-and stylesheets go into `src/stylsheets` with the [default
+and stylesheets go into `src/stylesheets` with the [default
 configuration][defconf], but you can always define your own configuration
 options if you would like to specify a more complicated build process. To
 create a default configuration, create a new file called `glp.yml` and give it
