@@ -260,6 +260,7 @@ rendered as *js* files as  described previously.
 Some more default formats are provided here:
 
           haml: {}
+          ejs: {}
 
           markdown:
             matches: ['**/*.md', '**/*.markdown']
@@ -346,6 +347,7 @@ extensions. This time we are outputting them with the `templates` file type.
             'src/**/*.md'
             'src/**/*.markdown'
             'src/**/*.haml'
+            'src/**/*.ejs'
           ]
 
 We are doing the same thing here but using different files and associating

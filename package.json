@@ -24,6 +24,7 @@
     "gulp-changed": "^0.2.1",
     "gulp-coffee": "^1.4.3",
     "gulp-concat": "^2.2.0",
+    "gulp-ejs": "^0.2.2",
     "gulp-filter": "^0.3.1",
     "gulp-haml": "0.0.8",
     "gulp-jade": "^0.4.2",
