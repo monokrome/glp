@@ -22,6 +22,7 @@
     "gulp": "^3.5.2",
     "gulp-cached": "0.0.3",
     "gulp-changed": "^0.2.1",
+    "gulp-coco": "0.0.1",
     "gulp-coffee": "^1.4.3",
     "gulp-concat": "^2.2.0",
     "gulp-ejs": "^0.2.2",

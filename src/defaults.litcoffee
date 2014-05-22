@@ -204,6 +204,8 @@ the process. This configuration file is all that you will need.
 
         scripts:
           coffee: {}
+          coco:
+            matches: '**/*.co'
 
 Scripts can also be compiled from jade templates. Since we have grouped
 filters with the *scripts* file group, we also know that we want the compiled
@@ -341,6 +343,7 @@ files would also be concatenated and the resulting file would be given the
           '/': [
             'src/**/*.js'
             'src/**/*.coffee'
+            'src/**/*.co'
             'src/**/*.hbs'
           ]
 
