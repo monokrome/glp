@@ -362,18 +362,18 @@ files would also be concatenated and the resulting file would be given the
 *extension* which corresponds to this type of file.
 
           '/': [
-            'src/**/*.js'
-            'src/**/*.coffee'
-            'src/**/*.iced'
-            'src/**/*.co'
-            'src/**/*.ls'
-            'src/**/*.ts'
-            'src/**/*.hbs'
-            'src/**/*.eco'
-            'src/**/*.djs'
-            'src/**/*.dust'
-            'src/**/*.njs'
-            'src/**/*.nunjucks'
+            'src/scripts/**/*.js'
+            'src/scripts/**/*.coffee'
+            'src/scripts/**/*.iced'
+            'src/scripts/**/*.co'
+            'src/scripts/**/*.ls'
+            'src/scripts/**/*.ts'
+            'src/scripts/**/*.hbs'
+            'src/scripts/**/*.eco'
+            'src/scripts/**/*.djs'
+            'src/scripts/**/*.dust'
+            'src/scripts/**/*.njs'
+            'src/scripts/**/*.nunjucks'
           ]
 
 Here, we are doing the same thing for *html*, *jade*, and some other file
@@ -381,14 +381,14 @@ extensions. This time we are outputting them with the `templates` file type.
 
         templates:
           '/': [
-            'src/**/*.html'
-            'src/**/*.jade'
-            'src/**/*.md'
-            'src/**/*.markdown'
-            'src/**/*.haml'
-            'src/**/*.ejs'
-            'src/**/*.mustache'
-            'src/**/*.tpl'
+            'src/templates/**/*.html'
+            'src/templates/**/*.jade'
+            'src/templates/**/*.md'
+            'src/templates/**/*.markdown'
+            'src/templates/**/*.haml'
+            'src/templates/**/*.ejs'
+            'src/templates/**/*.mustache'
+            'src/templates/**/*.tpl'
           ]
 
 We are doing the same thing here but using different files and associating
@@ -396,10 +396,10 @@ them to the *stylesheets* file type.
 
         stylesheets:
           '/': [
-            'src/**/*.css'
-            'src/**/*.less'
-            'src/**/*.sass'
-            'src/**/*.stylus'
+            'src/stylesheets/**/*.css'
+            'src/stylesheets/**/*.less'
+            'src/stylesheets/**/*.sass'
+            'src/stylesheets/**/*.stylus'
           ]
 
 ## static

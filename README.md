@@ -25,12 +25,13 @@ want to install it globally, you can install it into your current directory's
 npm install glp
 ```
 
-In most cases, you can put your app's files into a `src` directory, and glp
-will build them into the `public` directory. This will be compiled with the
-provided [default configuration][defconf], but you can always define your own
-configuration options if you would like to specify a more complicated build
-process. To create a default configuration, just create a new file called
-`glp.yml` and give it the following content:
+In most cases, you can put your scripts into a `src/scripts` directory, and glp
+will build them into the `public` directory. Templates go in `src/templates`,
+and stylesheets go into `src/stylsheets` with the [default
+configuration][defconf], but you can always define your own configuration
+options if you would like to specify a more complicated build process. To
+create a default configuration, create a new file called `glp.yml` and give it
+the following content:
 
 ```yaml
 glp: {}
