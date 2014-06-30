@@ -9,5 +9,8 @@ filters:
 
 files:
   scripts:
-    lib/glp/: 'src/**/*.coffee'
+    lib/glp/:
+      - 'src/**/*.coffee'
+      - 'src/**/*.litcoffee'
+
     # bin/: 'bin/**/*.coffee'
