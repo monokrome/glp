@@ -39,7 +39,10 @@ glp: {}
 
 Thanks to [PreferJS][prefer], the configuration file can also be placed in
 `etc/glp.yml`, `~/.config/glp.yml`, `~/glp.yml`, `/usr/local/etc/glp.yml`
-or any other standard locations on both Windows and UNIX platforms.
+or any other standard locations on both Windows and UNIX platforms. It can also
+be created in a varienty of formats, so you could call it `glp.json`,
+`glp.coffee`, `glp.cson`, `glp.ini`, `glp.xml`, or use any other format
+supported by [PreferJS][prefer].
 
 The configuration file format for GLP provides users the ability to instruct
 GLP exactly how you want your files built. Some potential ways to configure GLP
