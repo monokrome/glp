@@ -18,7 +18,7 @@
     "coffee-coverage": "^0.4.2",
     "coffee-script": "^1.7.1",
     "connect-livereload": "^0.3.2",
-    "express": "^4.4.5",
+    "express": "^4.5.1",
     "gulp": "^3.8.5",
     "gulp-cached": "0.0.3",
     "gulp-changed": "^0.2.1",
