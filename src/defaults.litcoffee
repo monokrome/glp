@@ -78,7 +78,7 @@ information describing the build process.
 ## globOptions
 
 This can be an object which describes the options that should be passed to the
-`gulp,watch` and `gulp.src` functions. The keys of the object should be the
+`gulp.watch` and `gulp.src` functions. The keys of the object should be the
 name of the task that the options are used with. The value for each task should
 be the options as [documented here][gulpsrcopts]. If no options are defined for
 the currently active task, then the 'default' options will be used.
