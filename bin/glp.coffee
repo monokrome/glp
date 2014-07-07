@@ -12,7 +12,7 @@ configFileNames = lodash.filter lodash.flatten [
   argv.config
   argv.c
   process.env.GLP_CONFIG_FILENAME
-  'glp.yml'
+  'glp'
 ]
 
 for configFileName in configFileNames
