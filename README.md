@@ -54,7 +54,7 @@ include:
 - **concatenators** for defining which plugins are used for joining files in a *file group*
 - **minifiers** for changing how a *file group* is minified
 - **extensions** for defining the suffix of output files for each *file group*.
-- **liveReload** options for defining changes affect your browser after compiling.
+- **liveReload** options for defining how changes affect your browser after compiling.
 - **static** options for defining routing of built files to a local web server
 - **tasks** to overlay different groupings of options based on command-line arguments
 
