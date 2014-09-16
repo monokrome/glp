@@ -50,7 +50,7 @@ serve = (glp) ->
 
   if configuration.static.catchAll?
     glp.service.all '*', (request, response, next) ->
-      response.sendfile configuration.static.catchAll,
+      response.sendFile configuration.static.catchAll,
         root: configuration.root
 
   address = chalk.white 'http://localhost:' + configuration.static.port
