@@ -216,8 +216,6 @@ forward options to [gulp-jade][gulpjade] in this case.
 
 Some more default formats are provided here:
 
-          iced: {}
-
           typescript:
             matches: '**/*.ts'
 
@@ -364,7 +362,6 @@ files would also be concatenated and the resulting file would be given the
           '/scripts/': [
             'src/scripts/**/*.js'
             'src/scripts/**/*.coffee'
-            'src/scripts/**/*.iced'
             'src/scripts/**/*.co'
             'src/scripts/**/*.ls'
             'src/scripts/**/*.ts'
