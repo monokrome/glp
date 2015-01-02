@@ -164,7 +164,7 @@ class Compiler
           extension: extension
 
       if isProcessedType and contextMethod?
-        steps.push filters.template contextMethod()
+        steps.push filters.template()
 
       steps = steps.concat @filteredPipeline type, output
 
