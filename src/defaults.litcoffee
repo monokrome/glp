@@ -517,6 +517,29 @@ different way. This is exactly how `glp release` works:
               pretty: no
 
 
+## templateProcessedTypes
+
+The `templateProcessedTypes` setting allows you to choose which file types will
+be preprocessed with context data during compilation. This will only occur for
+types whose name is in `templateProcessedTypes` and only when the `context`
+option has been provided.
+
+      templateProcessedTypes: [
+          'scripts'
+          'stylesheets'
+          'templates'
+      ]
+
+
+## templateContext
+
+If a `templateContext` option is provided, then some files will be preprocessed
+through `lodash.template` after filters have been applied. The template will be
+given the value of `templateContext` as it's context variables, and static
+files will contain the rendered result.
+
+
+
 [npm]: https://www.npmjs.org/
 [gulpsrcopts]: https://github.com/gulpjs/gulp/blob/master/docs/API.md#gulpsrcglobs-options
 [gulpcoffee]: https://www.npmjs.org/package/gulp-coffee

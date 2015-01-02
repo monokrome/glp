@@ -18,6 +18,8 @@ filters =
   plumber: require 'gulp-plumber'
   remember: require 'gulp-remember'
   order: require 'gulp-order'
+  data: require 'gulp-data'
+  template: require 'gulp-template'
 
 
 ensureArray = (value) ->
@@ -140,6 +142,16 @@ class Compiler
 
       steps = []
 
+      isProcessedType = type in @configuration.templateProcessedTypes
+      context = @configuration.templateContext
+
+      unless lodash.isFunction context
+        contextData = context
+        contextMethod = -> contextData
+
+      if isProcessedType and context?
+        steps.push filters.data contextMethod
+
       if @configuration.watch
         steps.push filters.plumber()
 
@@ -150,6 +162,9 @@ class Compiler
       unless shouldConcat
         steps.push filters.changed output,
           extension: extension
+
+      if isProcessedType and contextMethod?
+        steps.push filters.template contextMethod()
 
       steps = steps.concat @filteredPipeline type, output
 
