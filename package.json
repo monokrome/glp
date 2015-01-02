@@ -1,6 +1,6 @@
 {
   "name": "glp",
-  "version": "0.1.20",
+  "version": "0.1.21",
   "description": "Abstract various configuration formats through gulp.",
   "main": "lib/glp/index.js",
   "scripts": {
