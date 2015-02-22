@@ -149,7 +149,7 @@ class Compiler
         contextData = context
         contextMethod = -> contextData
 
-      if isProcessedType and context?
+      if isProcessedType and context
         steps.push filters.data contextMethod
 
       if @configuration.watch
@@ -163,7 +163,7 @@ class Compiler
         steps.push filters.changed output,
           extension: extension
 
-      if isProcessedType and contextMethod?
+      if isProcessedType and context
         steps.push filters.template()
 
       steps = steps.concat @filteredPipeline type, output
