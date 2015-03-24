@@ -50,15 +50,15 @@ The configuration file format for GLP provides users the ability to instruct
 GLP exactly how you want your files built. Some potential ways to configure GLP
 include:
 
-- **files** with *named groups* and where to find them
-- **filters** for introducing new ways to transform files in *file group*
-- **plugins** options for changing the way that glp uses them for each *file group*
-- **concatenators** for defining which plugins are used for joining files in a *file group*
-- **minifiers** for changing how a *file group* is minified
-- **extensions** for defining the suffix of output files for each *file group*.
-- **liveReload** options for defining how changes affect your browser after compiling.
-- **static** options for defining routing of built files to a local web server
-- **tasks** to overlay different groupings of options based on command-line arguments
+- **files** defining *named groups* and where to build their sources
+- **filters** for introducing new ways to transform files in *named groups*
+- **plugins** options for changing the way that glp processes files for each *named group*
+- **concatenators** for defining which plugins are used for joining files together in a *named group*
+- **minifiers** for changing how a *named groups* are minified
+- **extensions** for defining the suffix of output files for each *named group*.
+- **liveReload** options for defining how changing files affects your browser after compiling.
+- **static** options for defining routing of built files to a local web server.
+- **tasks** to overlay different groupings of options based on command-line arguments.
 
 More details for configuration can be [found here][defaults].
 
